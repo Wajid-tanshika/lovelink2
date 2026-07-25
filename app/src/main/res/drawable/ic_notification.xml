@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Heart profile silhouette logo for notifications -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,21.35 C11.8,21.2 4,15.5 4,9.5 C4,6.5 6.2,4.3 9.2,4.3 C10.9,4.3 11.8,5.1 12,5.7 C12.2,5.1 13.1,4.3 14.8,4.3 C17.8,4.3 20,6.5 20,9.5 C20,15.5 12.2,21.2 12,21.35 Z" />
+    <path
+        android:fillColor="#FF2A6D"
+        android:pathData="M12,14.5 C12,14.5 9,12.5 9,10.5 C9,9.5 9.8,8.8 10.8,8.8 C11.4,8.8 11.8,9.1 12,9.5 C12.2,9.1 12.6,8.8 13.2,8.8 C14.2,8.8 15,9.5 15,10.5 C15,12.5 12,14.5 12,14.5 Z" />
+</vector>

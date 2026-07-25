@@ -1,0 +1,6 @@
+{
+  "name": "LoveLink",
+  "description": "Modern Dating & Social App with Swiping, Matches, Real-time Chat, Diamond Rewards, and Premium Features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

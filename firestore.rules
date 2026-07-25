@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if the requesting user is an active admin in the 'admins' collection
+    function isActiveAdmin() {
+      return request.auth != null &&
+        request.auth.token.email != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.token.email.lower())) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.token.email.lower())).data.status == "active";
+    }
+
+    // Admins Collection:
+    // Only active superadmins or self read allowed. Only superadmin can write admin status.
+    match /admins/{userEmail} {
+      allow read: if request.auth != null && (request.auth.token.email.lower() == userEmail || isActiveAdmin());
+      allow write: if isActiveAdmin();
+    }
+
+    // User Profiles Collection:
+    // Users can read/write their own profile; Active admins have full access.
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null && (request.auth.uid == userId || isActiveAdmin());
+      allow delete: if isActiveAdmin();
+    }
+
+    // Reports Collection:
+    // Any authenticated user can submit a report. Only active admins can read, update, or delete reports.
+    match /reports/{reportId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if isActiveAdmin();
+    }
+
+    // Notifications & FCM Broadcasts:
+    // Only active admins can create or manage broadcast notifications. Users can read.
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null;
+      allow write: if isActiveAdmin();
+    }
+
+    // Diamond Packages & Premium Plans:
+    // Public read for store items; write restricted to active admins.
+    match /diamond_packages/{packageId} {
+      allow read: if true;
+      allow write: if isActiveAdmin();
+    }
+
+    match /premium_plans/{planId} {
+      allow read: if true;
+      allow write: if isActiveAdmin();
+    }
+
+    // App Settings:
+    // Public read for app configuration; write restricted to active admins.
+    match /app_settings/{settingDoc} {
+      allow read: if true;
+      allow write: if isActiveAdmin();
+    }
+
+    // Payment Transactions Log:
+    // User can read their own transactions; Active admins can read and manage all transactions.
+    match /payment_transactions/{txId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isActiveAdmin());
+      allow write: if isActiveAdmin();
+    }
+
+    // Withdrawal Requests Collection:
+    // User can submit and read their own withdrawal requests; Active admins can manage all requests.
+    match /withdrawals/{withdrawalId} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isActiveAdmin());
+      allow update, delete: if isActiveAdmin();
+    }
+
+    // Provider & System Configurations (Firebase, Calling, Storage):
+    match /app_configs/{configDoc} {
+      allow read: if request.auth != null;
+      allow write: if isActiveAdmin();
+    }
+
+    match /calling_configs/{configDoc} {
+      allow read: if request.auth != null;
+      allow write: if isActiveAdmin();
+    }
+
+    match /storage_configs/{configDoc} {
+      allow read: if request.auth != null;
+      allow write: if isActiveAdmin();
+    }
+  }
+}

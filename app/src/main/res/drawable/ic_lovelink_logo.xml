@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Dark rounded background square or circle for logo bounds -->
+    <path
+        android:pathData="M20,0 h160 a20,20 0 0,1 20,20 v160 a20,20 0 0,1 -20,20 h-160 a20,20 0 0,1 -20,-20 v-160 a20,20 0 0,1 20,-20 z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="200"
+                android:endY="200"
+                android:type="linear">
+                <item android:color="#FF1A092A" android:offset="0.0" />
+                <item android:color="#FF0D0518" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Outer Heart / Female Silhouette Left Side (Pink / Rose Gradient) -->
+    <path
+        android:pathData="M100,148 C98,146 32,106 32,66 C32,44 48,28 70,28 C84,28 94,36 100,44 C100,44 94,56 86,66 C78,76 68,88 68,102 C68,114 78,122 88,126 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="28"
+                android:endX="100"
+                android:endY="148"
+                android:type="linear">
+                <item android:color="#FFFF2A6D" android:offset="0.0" />
+                <item android:color="#FFE91E63" android:offset="0.6" />
+                <item android:color="#FFC2185B" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Outer Heart / Male Silhouette Right Side (Purple / Violet Gradient) -->
+    <path
+        android:pathData="M100,148 C102,146 168,106 168,66 C168,44 152,28 130,28 C116,28 106,36 100,44 C100,44 106,56 114,66 C122,76 132,88 132,102 C132,114 122,122 112,126 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="168"
+                android:startY="28"
+                android:endX="100"
+                android:endY="148"
+                android:type="linear">
+                <item android:color="#FF8A2387" android:offset="0.0" />
+                <item android:color="#FF9C27B0" android:offset="0.6" />
+                <item android:color="#FFE040FB" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Central Glowing Pink Heart -->
+    <path
+        android:pathData="M100,118 C100,118 78,102 78,88 C78,80 84,74 92,74 C97,74 100,77 100,80 C100,77 103,74 108,74 C116,74 122,80 122,88 C122,102 100,118 100,118 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="78"
+                android:startY="74"
+                android:endX="122"
+                android:endY="118"
+                android:type="linear">
+                <item android:color="#FFFF5252" android:offset="0.0" />
+                <item android:color="#FFFF2A6D" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Heart Highlight -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M92,78 C88,78 84,82 84,86 C84,87 85,88 86,88 C87,88 88,87 88,86 C88,84 90,82 92,82 C93,82 94,81 94,80 C94,79 93,78 92,78 Z" />
+
+</vector>

@@ -1,0 +1,46 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isActiveAdmin() {
+      return request.auth != null &&
+        request.auth.token.email != null &&
+        firestore.exists(/databases/(default)/documents/admins/$(request.auth.token.email.lower())) &&
+        firestore.get(/databases/(default)/documents/admins/$(request.auth.token.email.lower())).data.status == "active";
+    }
+
+    // Profile photos
+    match /profile_photos/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isActiveAdmin());
+    }
+
+    // Feed Posts media
+    match /posts/{userId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isActiveAdmin());
+    }
+
+    // Stories media
+    match /stories/{userId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isActiveAdmin());
+    }
+
+    // Chat media
+    match /chat_media/{userId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isActiveAdmin());
+    }
+
+    // Admin & general uploads
+    match /{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isActiveAdmin();
+    }
+  }
+}
